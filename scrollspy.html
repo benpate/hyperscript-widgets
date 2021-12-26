@@ -1,0 +1,127 @@
+<html>
+<head>
+	<script src="https://unpkg.com/hyperscript.org"></script>
+
+    <script type="text/hyperscript">
+        init
+            for node in <.hipsum />
+                fetch `https://hipsum.co/api/?type=hipster-centric&sentences=5&rand=${Math.random()}` as json
+                set the node's innerHTML to it
+            end
+        end
+
+        init        
+            call scrollspy()
+        end
+
+        on scroll from window
+            call scrollspy()
+        end
+
+        on click from < .scrollspy a />
+            call scrollspy()
+        end
+
+        def scrollspy() 
+            for node in <.scrollspy-target/>
+                measure the node
+                if (result.top < window.innerHeight) and (result.bottom >= 0)
+                    set hash to "#" + node.id
+                    take .selected from <.scrollspy a/> for <.scrollspy a[href="${hash}"]/>
+                    exit
+                end
+            end
+        end
+    </script>
+
+</head>
+<body>
+
+<div class="scrollspy">
+    <a href="#first">First</a>
+    <a href="#second">Second</a>
+    <a href="#third">Third</a>
+    <a href="#fourth">Fourth</a>
+    <a href="#fifth">Fifth</a>
+    <a href="#sixth">Sixth</a>
+</div>
+
+<div class="content">
+    <div id="first" class="scrollspy-target">
+        <h1>first section</h1>
+        <p class="hipsum"></p>
+        <p class="hipsum"></p>
+        <p class="hipsum"></p>
+        <p class="hipsum"></p>
+    </div>
+    <div id="second" class="scrollspy-target">
+        <h1>second section</h1>
+        <p class="hipsum"></p>
+        <p class="hipsum"></p>
+        <p class="hipsum"></p>
+        <p class="hipsum"></p>
+    </div>
+    <div id="third" class="scrollspy-target">
+        <h1>third section</h1>
+        <p class="hipsum"></p>
+        <p class="hipsum"></p>
+        <p class="hipsum"></p>
+        <p class="hipsum"></p>
+    </div>
+    <div id="fourth" class="scrollspy-target">
+        <h1>fourth section</h1>
+        <p class="hipsum"></p>
+        <p class="hipsum"></p>
+        <p class="hipsum"></p>
+        <p class="hipsum"></p>
+    </div>
+    <div id="fifth" class="scrollspy-target">
+        <h1>fifth section</h1>
+        <p class="hipsum"></p>
+        <p class="hipsum"></p>
+        <p class="hipsum"></p>
+        <p class="hipsum"></p>
+    </div>
+    <div id="sixth" class="scrollspy-target">
+        <h1>sixth section</h1>
+        <p class="hipsum"></p>
+        <p class="hipsum"></p>
+        <p class="hipsum"></p>
+        <p class="hipsum"></p>
+    </div>
+    <div style="height:300px;"></div>
+</div>
+
+    <style>
+        body {
+            margin-left: 250px;
+        }
+        .content {
+            width: 500px;
+            padding: 10px;
+            border: solid 1px #ccc;
+        }
+        .scrollspy {
+            position: fixed;
+            background:white;
+            border: solid 1px gray;
+            padding:10px;
+            top: 10px;
+            left: 10px;
+            width:200px;
+        }
+
+        .scrollspy > a {
+            display:block;
+            margin-bottom:10px;
+            padding: 5px 10px;
+            text-decoration:none;
+        }
+
+        .scrollspy a.selected {
+            background-color:#0099cc;
+            color:white;
+        }
+    </style>
+</body>
+</html>
