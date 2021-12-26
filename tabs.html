@@ -1,0 +1,85 @@
+<html>
+<head>
+<script src="https://unpkg.com/hyperscript.org@0.9.3"></script>
+
+
+<script type="text/hyperscript">
+behavior TabContainer
+
+init
+    if document.location.hash is not null then
+        send mousedown to first <a[href="${document.location.hash}"]/>
+    otherwise
+        send mousedown to first <.tab-labels a/> in me
+    end
+
+on mousedown(target) or touchstart(target)
+    set hash to the target's [@href]
+    set container to first <${hash}/>
+    
+    tell .tab-labels
+        take .selected from <a/> in you for target
+    end
+
+    tell .tab-contents
+        take .selected from <div/> in you for container
+    end
+</script>
+</head>
+<body>
+
+    <h1>Tabs: Hyperscript Behavior</h1>
+
+    <p>This tab control uses the browser's hash to maintain state, so tabs will stay selected even after a page reload.  It uses simple CSS classes that are easily overridden.</p>
+
+    <div class="tabs" script="install TabContainer">
+
+        <div class="tab-labels">
+            <a href="#tab-1">Tab 1</a>
+            <a href="#tab-2">Tab 2</a>
+            <a href="#tab-3">Tab 3</a>
+        </div>
+
+        <div class="tab-contents">
+            <div id="tab-1" class="selected">This is the content for the first tab</div>
+            <div id="tab-2">This is the content for the second tab</div>
+            <div id="tab-3">This is the content for the third tab</div>
+        </div>
+    </div>
+
+    <style>
+        * {
+            box-sizing:border-box;
+            font-family: --apple-system, Helvetica, sans-serif;
+        }
+
+        div.tab-labels {
+            border-bottom: solid 2px #DDD;
+            margin-bottom:20px;
+        }
+
+        div.tab-labels > a {
+            display:inline-block;
+            padding: 8px 10px 4px 10px;
+            border-radius: 4px 4px 0px 0px; 
+            text-decoration: none;
+            color: #777;
+        }
+
+        div.tab-labels > a.selected {
+            border-top: solid 3px blue;
+            background-color: #DDD;
+            color: #000;
+        }
+
+        div.tab-contents > div {
+            display:none;
+        }
+
+        div.tab-contents > div.selected {
+            display:block;
+        }
+    </style>
+
+</body>
+</html>

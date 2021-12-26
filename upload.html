@@ -1,0 +1,66 @@
+<html>
+<head>
+<script src="https://unpkg.com/htmx.org"></script>
+<script src="https://unpkg.com/hyperscript.org"></script>
+
+<script type="text/hyperscript">
+    behavior Uploader(url, success)
+
+    on dragenter or dragover
+        halt the event
+        add .highlight
+
+    on dragleave
+        halt the event
+        remove .highlight
+
+    on drop(dataTransfer)
+        halt the event
+        remove .highlight
+
+        for file in dataTransfer.files
+            make a FormData called formData
+            call formData.append("file", file)
+            fetch `${url}` {method:"POST", body:formData} as text
+        end
+
+        set the window's location to success
+
+    end
+</script>
+</head>
+
+<body>
+
+    <h1>File Uploader</h1>
+
+    <p>This hyperscript behavior enables drag-and-drop file uploads.  The htmx form displays the OS File Chooser dialog when clicked..</p>
+
+	<div class="uploader" _="install Uploader(url:'/{{.Token}}/attachments', success:'/{{.Token}}')">
+	
+		<div class="space-below gray40"><i class="fa-solid fa-arrow-up-from-bracket fa-8x"></i></div>
+		<h2 class="space-below">Drag Files Here to Upload</h2>
+		<label for="manual-upload" class="pure-button pure-button-primary">Or Click to Select from Your Device</label>
+		<form hx-post="/{{.Token}}/attachments" hx-encoding="multipart/form-data" hx-trigger="change" hx-swap="none" style="opacity:0;">
+			<input type="file" id="manual-upload" name="file"/>
+		</form>
+
+	</div>
+
+<style>
+    .uploader {
+        border: 1px dashed #999;
+        font-family: sans-serif;
+        padding: 40px;
+        cursor: pointer;
+        background-color: #EEE;
+        text-align:center;
+    }
+
+    #drop-area.highlight {
+        border-color: purple;
+    }
+</style>
+
+</body>
+</html>
