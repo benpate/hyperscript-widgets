@@ -1,5 +1,13 @@
-# hyperscript-widgets
+# Hyperscript Widgets 🧩
 
 ## A collectable library of of widgets and behaviors for a more hygienic web experience
 
-This is a work-in-progress to collect useful widgets that are built in [htmx](https://htmx.org) and [hyperscript](https://hyperscript.org).  If you have suggestions, requests, enhancements, or additions, please post them here!
+The goal of this repository is to assemble a rich library of pre-tested UI-controls that work nicely with [htmx](https://htmx.org) and [hyperscript](https://hyperscript.org).  As we're just getting started, all contributions are welcome.  In keeping with general htmx principles, we will endeavor to create code that is:
+
+* Usable
+* Accessible
+* Un-Scalable
+
+## Pull Requests Welcome
+
+If you have suggestions, requests, enhancements, or additions, please post them here.  We're all in this together. 🧩
