@@ -1,85 +1,135 @@
 <html>
 <head>
-<script src="https://unpkg.com/hyperscript.org@0.9.3"></script>
-
-
+<title>Hyperscript Behavior: TabContainer</title>
+<script src="https://unpkg.com/hyperscript.org"></script>
 <script type="text/hyperscript">
-behavior TabContainer
 
-init
-    if document.location.hash is not null then
-        send mousedown to first <a[href="${document.location.hash}"]/>
-    otherwise
-        send mousedown to first <.tab-labels a/> in me
-    end
+	behavior TabContainer
 
-on mousedown(target) or touchstart(target)
-    set hash to the target's [@href]
-    set container to first <${hash}/>
-    
-    tell .tab-labels
-        take .selected from <a/> in you for target
-    end
+		-- init handles the default tab selection.  If a document hash exists 
+		-- (and points to one of our tabs) then select it first.  Otherwise,
+		-- select the first tab in the list
+		init
+			if window.location.hash is not "" then
+				set target to the first <[aria-controls="${window.location.hash.slice(1)}"]/>
+			end
 
-    tell .tab-contents
-        take .selected from <div/> in you for container
-    end
+			if target is null then 
+				set target to first <[role=tab]/> in me
+			end
+
+			send select to target
+		end
+
+		-- move to previous tab left arrow
+		on keydown[keyCode==37]
+			set current to first <[aria-selected=true]/> in me
+			send select to previous <[role=tab]/> from current with wrapping
+		
+		-- move to next tab on right arrow
+		on keydown[keyCode==39]
+			set current to first <[aria-selected=true]/> in me
+			send select to next <[role=tab]/> from current with wrapping
+		
+		-- select highlighted tab on space
+		on keydown[keyCode==32]
+			send select to first <[role=tab]:focus/>
+
+		-- handle mouse clicks directly on tabs
+		on mousedown(target)[button==0] from <[role=tablist] [role=tab] />
+			send select to target
+		end
+
+		-- handle touch events for phones and tablets
+		on touchstart(target) from <[role=tablist] [role=tab] />
+			send select to target
+		end
+
+		on select(target)
+			for tab in <[role=tab] /> in me
+				if tab == target
+					add [@aria-selected="true"] to tab
+					call window.history.replaceState(undefined, tab.innerHTML, "#" + target[@aria-controls])
+				else
+					remove [@aria-selected] from tab
+				end
+			end
+
+			for panel in <[role=tabpanel] /> in me
+				set {hidden: (panel[@id] != target[@aria-controls])} on panel
+			end
+		end
+	end
 </script>
 </head>
 <body>
 
-    <h1>Tabs: Hyperscript Behavior</h1>
+	<h1>Accessible Tabs Container</h1>
 
-    <p>This tab control uses the browser's hash to maintain state, so tabs will stay selected even after a page reload.  It uses simple CSS classes that are easily overridden.</p>
+	<p>This tab widget is built using <a href="https://hyperscript.org/features/behavior/">hyperscript behaviors</a>, 
+	which allow us to attach multiple event handlers to a group of HTML elements.
 
-    <div class="tabs" script="install TabContainer">
+	<h2>Accessibility</h2>
+	<p>This control is built using WAI-ARIA controls so that it should behave well with screen readers and other adaptive technologies.</p>
+	<p>In addition, it listens for keyboard commands, so users can navigate tab contents using left and right arrows.</p>
 
-        <div class="tab-labels">
-            <a href="#tab-1">Tab 1</a>
-            <a href="#tab-2">Tab 2</a>
-            <a href="#tab-3">Tab 3</a>
-        </div>
+	<h2>Consistency</h2>
+	<p>This control also uses the browser's hash to maintain state, so that tabs will stay selected even after a page reload.</p>
 
-        <div class="tab-contents">
-            <div id="tab-1" class="selected">This is the content for the first tab</div>
-            <div id="tab-2">This is the content for the second tab</div>
-            <div id="tab-3">This is the content for the third tab</div>
-        </div>
-    </div>
+	<div class="tabs" script="install TabContainer">
 
-    <style>
-        * {
-            box-sizing:border-box;
-            font-family: --apple-system, Helvetica, sans-serif;
-        }
+		<div role="tablist">
+			<button role="tab" id="tab-1" aria-controls="panel-1" aria-selected="true">Tab 1</button>
+			<button role="tab" id="tab-2" aria-controls="panel-2">Tab 2</button>
+			<button role="tab" id="tab-3" aria-controls="panel-3">Tab 3</button>
+		</div>
 
-        div.tab-labels {
-            border-bottom: solid 2px #DDD;
-            margin-bottom:20px;
-        }
+		<div role="tabpanel" id="panel-1">This is the content for the first tab</div>
+		<div role="tabpanel" id="panel-2" hidden>This is the content for the second tab</div>
+		<div role="tabpanel" id="panel-3" hidden>This is the content for the third tab</div>
+	</div>
 
-        div.tab-labels > a {
-            display:inline-block;
-            padding: 8px 10px 4px 10px;
-            border-radius: 4px 4px 0px 0px; 
-            text-decoration: none;
-            color: #777;
-        }
+	<style>
+		* {
+			box-sizing: border-box;
+			font-family: --apple-system, Helvetica, sans-serif;
+		}
 
-        div.tab-labels > a.selected {
-            border-top: solid 3px blue;
-            background-color: #DDD;
-            color: #000;
-        }
+		div[role="tablist"] {
+			border-bottom: solid 1px #999;
+			margin-bottom:20px;
+		}
 
-        div.tab-contents > div {
-            display:none;
-        }
+		div[role="tablist"] > [role="tab"] {
+			cursor: pointer;
+			display:inline-block;
+			padding: 8px 12px 4px 12px;
+			margin:0px 5px -1px 0px;
+			background-color:#f5f5f5;
+			border:solid 1px #ccc;
+			border-bottom: solid 1px #999;
+			border-radius: 4px 4px 0px 0px; 
+			color: #777;
+			font-family: inherit;
+			font-size:1.2rem;
+			text-decoration: none;
+		}
 
-        div.tab-contents > div.selected {
-            display:block;
-        }
-    </style>
+		div[role="tablist"] > [role="tab"]:hover {
+			background-color: #eee;
+			border-color:#bbb;
+			border-bottom: solid 1px #999;
+			color:#666;
+		}
+
+		div[role="tablist"] > [role="tab"][aria-selected="true"] {
+			border-color: #999;
+			border-bottom: solid 1px white;
+			background-color: white;
+			color: #000;
+		}
+
+	</style>
 
 </body>
 </html>
