@@ -8,6 +8,12 @@ The goal of this repository is to assemble a rich library of pre-tested UI-contr
 * Accessible
 * Un-Scalable
 
+## A Growing Library of Widgets
+
+* [File Upload](upload.html)
+* [Modal Dialog](modal.html)
+* [Tab Control](tabs.html)
+
 ## Pull Requests Welcome
 
 If you have suggestions, requests, enhancements, or additions, please post them here.  We're all in this together. 🧩
