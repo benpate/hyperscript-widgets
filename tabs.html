@@ -21,18 +21,22 @@
 			send select to target
 		end
 
-		-- move to previous tab left arrow
+		-- move to previous tab LEFT ARROW
 		on keydown[keyCode==37]
 			set current to first <[aria-selected=true]/> in me
 			send select to previous <[role=tab]/> from current with wrapping
 		
-		-- move to next tab on right arrow
+		-- move to next tab on RIGHT ARROW
 		on keydown[keyCode==39]
 			set current to first <[aria-selected=true]/> in me
 			send select to next <[role=tab]/> from current with wrapping
 		
-		-- select highlighted tab on space
+		-- select highlighted tab on SPACE (expected for ARIA buttons)
 		on keydown[keyCode==32]
+			send select to first <[role=tab]:focus/>
+
+		-- select highlighted tab on ENTER (additional key to select tabs)
+		on keydown[keyCode==13]
 			send select to first <[role=tab]:focus/>
 
 		-- handle mouse clicks directly on tabs
@@ -66,12 +70,13 @@
 
 	<h1>Accessible Tabs Container</h1>
 
-	<p>This tab widget is built using <a href="https://hyperscript.org/features/behavior/">hyperscript behaviors</a>, 
+	<p>This tab widget is built using <a href="https://hyperscript.org/features/behavior/" tabindex="0">hyperscript behaviors</a>, 
 	which allow us to attach multiple event handlers to a group of HTML elements.
 
 	<h2>Accessibility</h2>
-	<p>This control is built using WAI-ARIA controls so that it should behave well with screen readers and other adaptive technologies.</p>
-	<p>In addition, it listens for keyboard commands, so users can navigate tab contents using left and right arrows.</p>
+	<p>This control is built using &lt;button&gt; elements and WAI-ARIA controls so that it should behave well with screen readers and other adaptive technologies.  
+	You can try it out by pressing the [TAB] key to navigate to different tabs.  To select a focused tab, press the [SPACE] bar.
+	Tabs can also be selected by pressing the right and left arrow keys.</p>
 
 	<h2>Consistency</h2>
 	<p>This control also uses the browser's hash to maintain state, so that tabs will stay selected even after a page reload.</p>
@@ -93,6 +98,11 @@
 		* {
 			box-sizing: border-box;
 			font-family: --apple-system, Helvetica, sans-serif;
+			line-height:1;
+		}
+
+		p {
+			line-height:1.6;
 		}
 
 		div[role="tablist"] {
