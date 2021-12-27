@@ -12,7 +12,7 @@ The goal of this repository is to assemble a rich library of pre-tested UI-contr
 
 * [File Upload](upload.html)
 * [Modal Dialog](modal.html)
-* [Tab Control](tabs.html)
+* [Tab Container](tabs.html)
 
 ## Pull Requests Welcome
 
