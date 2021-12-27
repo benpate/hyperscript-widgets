@@ -21,6 +21,14 @@
 			send select to target
 		end
 
+		-- move to first tab on HOME
+		on keydown[keyCode==36]
+			send select to first <[role=tab]/> in me
+
+		-- move to last tab on END
+		on keydown[keyCode==35]
+			send select to last <[role=tab]/> in me
+
 		-- move to previous tab LEFT ARROW
 		on keydown[keyCode==37]
 			set current to first <[aria-selected=true]/> in me
@@ -74,7 +82,7 @@
 	which allow us to attach multiple event handlers to a group of HTML elements.
 
 	<h2>Accessibility</h2>
-	<p>This control is built using &lt;button&gt; elements and WAI-ARIA controls so that it should behave well with screen readers and other adaptive technologies.  
+	<p>This control is built using &lt;button&gt; elements and WAI-ARIA controls, based on <a href="https://www.w3.org/TR/wai-aria-practices/#tabpanel">W3C Accessibility guidelines</a> so that it should behave well with screen readers and other adaptive technologies.  
 	You can try it out by pressing the [TAB] key to navigate to different tabs.  To select a focused tab, press the [SPACE] bar.
 	Tabs can also be selected by pressing the right and left arrow keys.</p>
 
@@ -89,9 +97,9 @@
 			<button role="tab" id="tab-3" aria-controls="panel-3">Tab 3</button>
 		</div>
 
-		<div role="tabpanel" id="panel-1">This is the content for the first tab</div>
-		<div role="tabpanel" id="panel-2" hidden>This is the content for the second tab</div>
-		<div role="tabpanel" id="panel-3" hidden>This is the content for the third tab</div>
+		<div role="tabpanel" id="panel-1" aria-labelledby="tab-1">This is the content for the first tab</div>
+		<div role="tabpanel" id="panel-2" aria-labelledby="tab-2" hidden>This is the content for the second tab</div>
+		<div role="tabpanel" id="panel-3" aria-labelledby="tab-3" hidden>This is the content for the third tab</div>
 	</div>
 
 	<style>
