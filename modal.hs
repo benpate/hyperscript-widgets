@@ -14,11 +14,15 @@ behavior Modal
 
 		focus() the first <[tabindex]/> in me
 
-	on closeModal from window	
+	on closeModal(nextPage) from window	
 		if #modal is not empty then 
 			add .closing to #modal
 			settle
 			remove #modal
+		end
+
+		if nextPage is not empty then 
+			set the window's location to nextPage
 		end
 	
 	on click(target)
