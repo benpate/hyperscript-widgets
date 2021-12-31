@@ -1,30 +1,8 @@
 <html>
 <head>
+<script type="text/hyperscript" src="modal.hs"></script>
 <script src="https://unpkg.com/htmx.org"></script>
 <script src="https://unpkg.com/hyperscript.org"></script>
-<script type="text/hyperscript">
-
-on closeModal
-    log "closeModal"
-	if #modal is empty then 
-        exit
-    end
-
-    log "here"
-    add .closing to #modal
-    settle
-    remove #modal
-
-end
-
-on keypress[key=="Escape"] from window
-	if #modal is not empty then 
-		trigger closeModal
-		halt
-	end
-end
-
-</script>
 </head>
 <body>
 
@@ -141,5 +119,15 @@ end
 	100% {transform: scale(0.9);}
 } 
 
+
+/** Cheapo Styling for HTML Form **********/
+*{
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+form label {
+	display:block;
+	margin-bottom:20px;
+}
 </style>
 </body>

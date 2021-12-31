@@ -1,8 +1,32 @@
-<div id="modal">
-    <div class="modal-underlay" script="on click trigger closeModal"></div>
+<div id="modal" script="install Modal">
+    <div class="modal-underlay"></div>
     <div class="modal-content">
-        <h1>This is the content of my modal</h1>
-        <p>And here is some content.  You're welcome</p>
-        <button script="on click trigger closeModal">Close</button>
+        <h1 id="title">Accessible Dialog</h1>
+        <p>
+            This widget follows the W3C accessibility guidelines for modal dialogs. 
+        </p>
+
+        <ul>
+            <li>Captures focus when first opened</li>
+            <li>[TAB] toggles between all focusable elements (with 'tabindex' attribute)</li>
+            <li>[ESC] closes the dialog (as does clicking the underlay)</li>
+            <li>Automatically adds ARIA roles and labels</li>
+        </ul>
+
+        <form>
+            <label for="name">
+                Name:<br>
+                <input id="name" tabIndex="0" type="text">
+            </label>
+            <label for="email">
+                Email:<br>
+                <input id="email" tabIndex="0" type="email">
+            </label>
+
+            <div>
+                <button tabIndex="0">Save</button>
+                <button tabIndex="0" type="button" script="on click trigger closeModal">Close</button>
+            </div>
+        </form>
     </div>
 </div>
