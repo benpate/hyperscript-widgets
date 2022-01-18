@@ -1,0 +1,20 @@
+<html>
+<head>
+<script src="https://unpkg.com/hyperscript.org"></script>
+<script type="text/hyperscript">
+
+behavior hotkey
+
+    on keypress
+        set hotkey to "b"
+        log the first <[data-shortcut="${hotkey}"]/>
+
+</script>
+</head>
+<body>
+    <div script="install hotkey">
+        <button data-shortcut="b">Bold</button>
+        <textarea></textarea>
+    </div>
+</body>
+</html>
