@@ -1,0 +1,22 @@
+<html>
+<head>
+<script type="text/hyperscript" src="uploader.hs"></script>
+<script src="https://unpkg.com/htmx.org"></script>
+<script src="https://unpkg.com/hyperscript.org"></script>
+<link rel="stylesheet" href="uploader.css">
+</head>
+
+<body>
+
+    <h1>File Uploader</h1>
+
+    <p>This hyperscript behavior enables drag-and-drop file uploads.  The htmx form displays the OS File Chooser dialog when clicked..</p>
+
+	<div class="uploader" script="install Uploader(url:'https://file.io', accept:'image/*') on upload:success alert('yusss!')">
+		<div class="space-below gray40"><i class="fa-solid fa-arrow-up-from-bracket fa-8x"></i></div>
+		<h2 class="space-below">Drag Files Here to Upload</h2>
+		<label for="manual-upload" role="button">Or Click to Select from Your Device</label>
+	</div>
+
+</body>
+</html>

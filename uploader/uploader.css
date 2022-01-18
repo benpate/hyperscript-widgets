@@ -1,0 +1,31 @@
+* {
+    font-family: sans-serif;
+}
+
+.uploader {
+    border: 1px dashed #666;
+    padding: 40px;
+    cursor: pointer;
+    background-color: #eee;
+    text-align:center;
+}
+
+.uploader.highlight {
+    background-color: #eef;
+    border-color: #00c;
+}
+
+[role="button"] {
+    display:inline-block;
+    padding:10px 20px;
+    border: solid 1px #666;
+    border-radius:5px;
+    background-color: #ccc;
+    color:#333;
+    cursor: pointer;
+}
+
+[role="button"]:hover {
+    background-color:#bbb;
+    color:#000;
+}
