@@ -1,0 +1,37 @@
+<html>
+<head>
+	<title>Hyperscript Behavior: Accessible Tabs</title>
+	<script type="text/hyperscript" src="tabs.hs"></script>
+	<script src="https://unpkg.com/hyperscript.org"></script>
+	<link rel="stylesheet" href="tabs.css">
+</head>
+<body>
+
+	<h1>Hyperscript Behavior: Accessible Tabs</h1>
+
+	<p>This tab widget is built using <a href="https://hyperscript.org/features/behavior/" tabindex="0">hyperscript behaviors</a>, 
+	which allow us to attach multiple event handlers to a group of HTML elements.
+
+	<h2>Accessibility</h2>
+	<p>This control is built using &lt;button&gt; elements and WAI-ARIA controls, based on <a href="https://www.w3.org/TR/wai-aria-practices/#tabpanel">W3C Accessibility guidelines</a> so that it should behave well with screen readers and other adaptive technologies.  
+	You can try it out by pressing the [TAB] key to navigate to different tabs.  To select a focused tab, press the [SPACE] bar.
+	Tabs can also be selected by pressing the right and left arrow keys.</p>
+
+	<h2>Consistency</h2>
+	<p>This control also uses the browser's hash to maintain state, so that tabs will stay selected even after a page reload.</p>
+
+	<div class="tabs" script="install TabContainer">
+
+		<div role="tablist">
+			<button role="tab" id="tab-1" aria-controls="panel-1" aria-selected="true">Tab 1</button>
+			<button role="tab" id="tab-2" aria-controls="panel-2">Tab 2</button>
+			<button role="tab" id="tab-3" aria-controls="panel-3">Tab 3</button>
+		</div>
+
+		<div role="tabpanel" id="panel-1" aria-labelledby="tab-1">This is the content for the first tab</div>
+		<div role="tabpanel" id="panel-2" aria-labelledby="tab-2" hidden>This is the content for the second tab</div>
+		<div role="tabpanel" id="panel-3" aria-labelledby="tab-3" hidden>This is the content for the third tab</div>
+	</div>
+
+</body>
+</html>
