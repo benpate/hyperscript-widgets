@@ -2,6 +2,8 @@ behavior toggle
 
     init
         add .toggle-container to me
+        add [@tabIndex=0] to me
+
         append `<span class="toggle"><span class="marker"></span></span>` to my innerHTML
         append `<input type="hidden" name="${my @name}" value=""/>` to my innerHTML
 
@@ -14,6 +16,10 @@ behavior toggle
         set my *transition to "background-color 0.1s ease-in-out, border-color 0.1s ease-in-out"
 
     on mousedown or touchstart
+        halt the event
+        send toggle
+
+    on keypress[code=="Space"]
         halt the event
         send toggle
 
