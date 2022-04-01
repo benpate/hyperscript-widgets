@@ -19,13 +19,16 @@ behavior toggle
     on recalculate
 
         halt the event
+        set hidden to first <input[type=hidden]/> in me
 
         if my @value == "true" then
             set my @value to "false"
+            set hidden's @value to "false"
             set text to my [@false-text]
             
         else 
             set my @value to "true"
+            set hidden's @value to "true"
             set text to my [@true-text]
         end
 
