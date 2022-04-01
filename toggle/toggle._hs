@@ -1,0 +1,38 @@
+behavior toggle
+
+    init
+        add .toggle-container to me
+        append `<span class="toggle"><span class="marker"></span></span>` to my innerHTML
+        append `<input type="hidden" name="${my @name}" value=""/>` to my innerHTML
+
+        if (my [@true-text] != "") or (my [@false-text] != "") then
+            append `<label></label>` to my innerHTML
+        end
+        
+        send recalculate
+        wait a tick
+        set my *transition to "background-color 0.1s ease-in-out, border-color 0.1s ease-in-out"
+
+    on click 
+        send recalculate
+
+    on recalculate
+
+        halt the event
+
+        if my @value == "true" then
+            set my @value to "false"
+            set text to my [@false-text]
+            
+        else 
+            set my @value to "true"
+            set text to my [@true-text]
+        end
+
+        set label to the first <label/> in me
+
+        if the label is not null then
+            set the label's innerHTML to the text
+        end
+end
+end
