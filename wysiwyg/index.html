@@ -1,0 +1,67 @@
+<html>
+<head>
+	<link rel="stylesheet" href="wysiwyg.css"/>
+	<script src="wysiwyg._hs" type="text/hyperscript"></script>
+	<script src="../hotkey/hotkey._hs" type="text/hyperscript"></script>
+	
+	<script src="https://unpkg.com/hyperscript.org" type="text/javascript"></script>
+</head>
+<body>
+
+	<h1>WYSIWYG Editor</h1>
+
+	<p>Here is a simple WYSIWYG editor built in pure hyperscript.  It is a thin wrapper built on top of your browser's
+		<a href="https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Editable_content">built-in contentEditable control</a>.
+	</p>
+
+	<p>This demo also uses the <a href="../hotkey">hotkey behavior</a> for keyboard shortcuts.</p>
+
+	<form script="on submit halt the event then log me as Values">
+		<input type="hidden" name="html"/>
+
+		<div class="wysiwyg" script="install wysiwyg(name:'html') install hotkey">
+			<div class="wysiwyg-toolbar">
+
+				<span class="wysiwyg-toolbar-group">
+					<button data-command="formatBlock" data-command-value="h1">H1</button
+					><button data-command="formatBlock" data-command-value="h2">H2</button
+					><button data-command="formatBlock" data-command-value="h3">H3</button
+					><button data-command="formatBlock" data-command-value="p">P</button>
+				</span>
+
+				<span class="wysiwyg-toolbar-group">
+					<button data-command="bold" aria-keyshortcuts="Ctrl+B">B</button
+					><button data-command="italic" aria-keyshortcuts="Ctrl+I">I</button
+					><button data-command="underline" aria-keyshortcuts="Ctrl+U">U</button>
+				</span>
+
+				<span class="wysiwyg-toolbar-group")>
+					<button data-command="createLink" aria-keyshortcuts="Ctrl+K">Link</button
+					><button data-command="unlink" aria-keyshortcuts="Ctrl+Shift+K">Unlink</button>
+				</span>
+
+				<span class="wysiwyg-toolbar-group" hidden="true">
+					<button data-command="cut" aria-keyshortcuts="Ctrl+X">Cut</button>
+					<button data-command="copy" aria-keyshortcuts="Ctrl+C">Copy</button>
+					<button data-command="paste" aria-keyshortcuts="Ctrl+V">Paste</button>
+					<button data-command="undo" aria-keyshortcuts="Ctrl+Z">Undo</button>
+					<button data-command="redo" aria-keyshortcuts="Ctrl+Shift+Z">Redo</button>
+				</span>
+
+			</div>
+
+			<div class="wysiwyg-editor"><b>This is a <i>WYSIWYG</i> editor</b>.  Go ahead and give it a try. 😀</div>
+		</div>
+
+	</form>
+
+	<br>
+	<br>
+
+	<h3>NOTES:</h3>
+	<p>There are many inconsistencies in the way that browsers implement contentEditable which also affect this version of the WYSIWYG control.  For example, for the "bold" command, some browsers use &lt;b&gt; while some use &lt;strong&gt;.  In its current state, people using two different browsers may not be able to undo/redo each other's changes with this WYSIWYG control.  Future updates will need to address this with an additional layer of logic that normalizes browser's behaviors.</p>
+
+	<p>The current W3C spec has deprecated <a href="https://w3c.github.io/editing/docs/execCommand/">execCommand()</a> without providing alternatives.  It seems like everybody hates contentEditable, but nobody wants to provide a replacement.  When browser developers work this out on their end, we'll be able to make a simpler, more reliable WYSIWYG on ours.</p>
+
+</body>
+</html>

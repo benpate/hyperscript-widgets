@@ -1,0 +1,126 @@
+/***************************
+ * COLORS
+ ***************************/
+
+:root {
+	--white: #ffffff;
+	--gray05: #fafafa;
+	--gray10: #f4f4f4;
+	--gray15: #eaeaea;
+	--gray20: #e0e0e0;
+	--gray30: #c6c6c6;
+	--gray40: #a8a8a8;
+	--gray50: #8d8d8d;
+	--gray60: #6f6f6f;
+	--gray70: #525252;
+	--gray80: #393939;
+	--gray90: #262626;
+	--black: #000000;
+
+	--blue10: #edf5ff;
+	--blue20: #d0e2ff;
+	--blue30: #a6c8ff;
+	--blue40: #78a9ff;
+	--blue50: #4589ff;
+	--blue60: #0f62fe;
+	--blue70: #0043ce;
+	--blue80: #002d9c;
+	--blue90: #001d6c;
+	--blue100: #001141;
+
+	--red10: #fff1f1;
+	--red20: #ffd7d9;
+	--red30: #ffb3b8;
+	--red40: #ff8389;
+	--red50: #fa4d56;
+	--red60: #da1e28;
+	--red70: #a2191f;
+	--red80: #750e13;
+	--red90: #520408;
+	--red100: #2d0709;
+
+	--green10: #f1fff1;
+	--green20: #d7ffd9;
+	--green30: #b3ffb8;
+	--green40: #83ff89;
+	--green50: #4dfa56;
+	--green60: #1eda28;
+	--green70: #19a21f;
+	--green80: #0e7513;
+	--green90: #045208;
+	--green100: #072d09;
+
+	--input-border: var(--gray30);
+	--input-background: var(--gray05);
+	--input-color: var(--gray80);
+
+	--input-border-invalid: var(--red40);
+	--input-background-invalid: var(--red20);
+	--input-color-invalid: var(--red50);
+
+	--border-radius: 7px;
+}
+
+
+/***************************
+ * WYSIWYG
+ ***************************/
+
+.wysiwyg {
+	box-sizing: border-box;
+	position:relative;
+	display:block;
+	width:100%;
+	background: var(--white);
+	border:solid 1px var(--gray20);
+}
+
+.wysiwyg-toolbar {
+	display:block;
+	padding:5px 0px 10px 0px;
+	white-space: nowrap;
+	overflow-x: scroll;
+	border: solid 1px cornflowerblue;
+	background-color:var(--gray10);
+}
+
+.wysiwyg-toolbar-group {
+	margin-left: 10px;
+}
+
+.wysiwyg-toolbar button {
+	margin:0px -1px 0px 0px;
+	padding:8px 10px;
+	border: solid 1px var(--gray20);
+	border-radius:0px;
+	background-color:var(--white);
+}
+
+.wysiwyg-toolbar button:hover {
+	background-color:cornflowerblue;
+	border-color:cornflowerblue;
+	color:white;
+}
+
+.wysiwyg-toolbar button:first-of-type {
+	border-top-left-radius: 6px;
+	border-bottom-left-radius: 6px;
+}
+
+.wysiwyg-toolbar button:last-child {
+	border-top-right-radius: 6px;
+	border-bottom-right-radius: 6px;
+}
+
+.wysiwyg-editor {
+	width:100%;
+	min-height:5em;
+	padding:10px;
+	z-index:10;
+	border: solid 1px var(--gray30);
+}
+
+.wysiwyg-editor:focus{
+	border:solid 1px cornflowerblue;
+	outline:none;
+}
