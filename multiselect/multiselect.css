@@ -1,0 +1,58 @@
+/** MULTI-SELECT ********/
+
+.multiselect {
+	display:flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+}
+
+.multiselect > .options {
+	display:block;
+	flex-grow:1;
+	border: solid 1px #c6c6c6;
+	background-color: #fafafa;
+	height:auto;
+	margin-right:10px;
+	overflow-y:scroll;
+	overflow-x:hidden;
+}
+
+.multiselect > .options > label {
+	display:block;
+	padding:5px;
+	cursor: pointer;
+	border-top: solid 1px rgba(0,0,0,0);
+	transition:background-color 100ms;
+}
+
+.multiselect > .options > label.selected,
+.multiselect > .options > label:focus {
+	background-color: Highlight;
+	color: HighlightText;
+	border-top: solid 1px #78a9ff;
+	border-bottom: solid 1px #78a9ff;
+	outline: 0;
+}
+
+.multiselect > .options > label > input {
+	vertical-align: middle;
+	display:inline-block;
+	margin-right:0.5em;
+	height:1em;
+	width:1em;
+}
+
+.multiselect > .options > label > div {
+	display:inline-block;
+	vertical-align:top;
+}
+
+.multiselect > .buttons {
+	flex-basis:0;
+}
+
+.multiselect > .buttons > button {
+	display:block;
+	margin-bottom:5px;
+	padding:5px 10px;
+}
