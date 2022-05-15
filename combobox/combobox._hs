@@ -44,7 +44,11 @@ behavior combobox
 
 	on keydown[code=="ArrowDown"]
 		halt the event
-		call showMenu()
+
+		if :menu's *opacity is 0 then
+			call showMenu()
+			exit
+		end
 
 		set selected to the first <[role="menuitem"].selected /> in me
 		
@@ -62,7 +66,11 @@ behavior combobox
 
 	on keydown[code=="ArrowUp"]
 		halt the event
-		call showMenu()
+
+		if :menu's *opacity is 0 then
+			call showMenu()
+			exit
+		end
 		
 		set selected to the first <[role="menuitem"].selected /> in me
 		
@@ -106,7 +114,6 @@ behavior combobox
 			wait a tick
 			transition the :menu's opacity to 0 over 100ms
 			add [@hidden=true] to :menu
-			remove .selected from <[role="menuitem"] /> in me
 		end
 
 	def selectMenuItem(node)
