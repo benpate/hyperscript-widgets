@@ -5,6 +5,8 @@
 	<style>
 		* {font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;}
 		main {font-weight: 300;}
+		.text-sm{font-size:10pt;}
+		.gray50 {color: #888;}
 	</style>
 </head>
 <body>
@@ -13,7 +15,13 @@
 
 	<main>
 
-		Here is a native select widget, for comparison
+		This is a standard combo-box widget written in _hyperscript.  
+		Like the rest of the widgets in this library, special attention has been paid to accessibility issues, so you should be able to 
+		navigate it using only your keyboard.
+
+		<br><br>
+
+		For comparison, here is a native select widget:
 		<select>
 			<option>All</option>
 			<option>Work</option>
@@ -29,7 +37,7 @@
 
 		<br><br>
 
-		Here is a combobox
+		Here is the combobox widget:<br>
 		<div script="install combobox" class="combobox" style="width:500px;">
 			<input type="text" name="someValue" value="Work">
 			<div class="open-button"><span style="transform:rotate(180deg) translateY(-2px); display:inline-block;">△</span></div>
@@ -79,12 +87,80 @@
 
 		<br><br>
 
-		Here is some text below the combobox, to demonstrate that we handle reflows correctly.
+		Here another one that uses rich values:<br>
+		<div script="install combobox" class="combobox" style="width:500px;">
+			<input type="text" name="someValue" value="Work">
+			<div class="open-button"><span style="display:inline-block;">⬇️</span></div>
+			<div role="menu" hidden="true">
+				<div value="Flamingo" style="display:flex; flex-direction:row;">
+					<div style="padding-right:10px">
+						<img src="https://images.unsplash.com/photo-1497206365907-f5e630693df0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2680&q=80" style="height:75px; float:left;">
+					</div>
+					<div>
+						<div><b>Flamingo</b></div>
+						<div class="text-sm gray50">Weird pink birds that stand on one foot.</div>
+					</div>
+				</div>
+				<div value="Panda" style="display:flex; flex-direction:row;">
+					<div style="padding-right:10px">
+						<img src="https://images.unsplash.com/photo-1525382455947-f319bc05fb35?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2696&q=80" style="height:75px; float:left;">
+					</div>
+					<div>
+						<div><b>Panda</b></div>
+						<div class="text-sm gray50">Destroy racism.  Be like the Panda.  He's Black.  He's White.  He's Asian.</div>
+					</div>
+				</div>
+				<div value="Cheetah" style="display:flex; flex-direction:row;">
+					<div style="padding-right:10px">
+						<img src="https://images.unsplash.com/photo-1576222901803-c062b57925b4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2651&q=80" style="height:75px; float:left;">
+					</div>
+					<div>
+						<div><b>Cheetah</b></div>
+						<div class="text-sm gray50">Spotted runner cats with crying eyes.</div>
+					</div>
+				</div>
+				<div value="Horse" style="display:flex; flex-direction:row;">
+					<div style="padding-right:10px">
+						<img src="https://images.unsplash.com/photo-1573751056139-2ab65b6b03be?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2712&q=80" style="height:75px; float:left;">
+					</div>
+					<div>
+						<div><b>Horse</b></div>
+						<div class="text-sm gray50">Just like a unicorn except no horn.</div>
+					</div>
+				</div>
+				<div value="Fox" style="display:flex; flex-direction:row;">
+					<div style="padding-right:10px">
+						<img src="https://images.unsplash.com/photo-1604429868519-8a64cb3b010b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2680&q=80" style="height:75px; float:left;">
+					</div>
+					<div>
+						<div><b>Fox</b></div>
+						<div class="text-sm gray50">Listen closely and you can hear what he says: &quot;Hatti, hatti, hatti-ho.&quot;</div>
+					</div>
+				</div>
+				<div value="Zebra" style="display:flex; flex-direction:row;">
+					<div style="padding-right:10px">
+						<img src="https://images.unsplash.com/photo-1501706362039-c06b2d715385?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2440&q=80" style="height:75px; float:left;">
+					</div>
+					<div>
+						<div><b>Zeebra</b></div>
+						<div class="text-sm gray50">In Canada, they pronounce it &quot;zed-bruh.&quot;</div>
+					</div>
+				</div>
+				<div value="Frog" style="display:flex; flex-direction:row;">
+					<div style="padding-right:10px">
+						<img src="https://images.unsplash.com/photo-1553558888-6440b4097908?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2680&q=80" style="height:75px; float:left;">
+					</div>
+					<div>
+						<div><b>Frog</b></div>
+						<div class="text-sm gray50">That's it.  Just a frog.</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
 
 		<br><br>
-
-		Here's another input to tab to
-
+		Here's another input:<br>
 		<input>
 
 	<script src="combobox._hs" type="text/hyperscript"></script>

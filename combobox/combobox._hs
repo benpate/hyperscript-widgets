@@ -37,8 +37,14 @@ behavior combobox
 		end
 
 	on mousedown
-		if the target's [@role] == "menuitem" then 
-			call selectMenuItem(target)
+		if target's [@role] == "menuitem" then
+			set item to target
+		else
+			set item to the closest <[role="menuitem"]/> to the target
+		end
+
+		if the item is not null then 
+			call selectMenuItem(item)
 			call hideMenu()
 			call :input.focus()
 		end

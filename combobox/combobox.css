@@ -35,6 +35,7 @@
 
 .combobox > [role="menu"] {
 	position:absolute;
+	z-index:10;
 	left:0px;
 	right:0px;
 	border: solid 1px #ddd;
@@ -52,5 +53,9 @@
 
 .combobox [role="menuitem"].selected {
 	background-color:cornflowerblue;
+	color:white;
+}
+
+.selected .gray50 {
 	color:white;
 }
