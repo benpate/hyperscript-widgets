@@ -1,0 +1,16 @@
+	-- init
+	--	setHeight(me, my @height)
+
+	def setHeight(node, max)
+
+		set child to the node's firstElementChild
+	
+		if child is null then
+			set size to max * 20
+		else 
+			set size to max * (child's scrollHeight)
+		end
+	
+		set node's *height to "auto"
+		set node's *overflowY to "auto"
+		set node's *maxHeight to size px

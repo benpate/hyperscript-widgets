@@ -10,6 +10,7 @@ The goal of this repository is to assemble a rich library of pre-tested UI-contr
 
 ## A Growing Library of Widgets
 
+* [Combo Box](combobox)
 * [File Upload](uploader)
 * [Modal Dialog](modal)
 * [Multi-Select](multiselect)

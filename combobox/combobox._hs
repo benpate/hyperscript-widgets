@@ -1,0 +1,126 @@
+behavior combobox
+
+	init
+		add .combobox to me
+		set :input to the first <input/> in me
+		set :menu to the first <[role=menu]/> in me
+		set :menu's *top to my height
+
+		for menuItem in (:menu).children
+			add [@role=menuitem] to menuItem 
+		end
+
+	-- -------------------------
+	-- INPUT EVENTS
+	-- -------------------------
+
+	on focus from <input/> in me
+		exit
+
+	on blur from <input/> in me
+		call hideMenu()
+		
+	-- -------------------------
+	-- MOUSE EVENTS
+	-- -------------------------
+
+	on click from <.open-button /> in me
+		focus() the :input
+		call toggleMenu()
+
+	on mouseover
+		if target's [@role] == "menuitem" then
+			take .selected for target
+		end
+
+	on mousedown
+		if the target's [@role] == "menuitem" then 
+			call selectMenuItem(target)
+		end
+
+	-- -------------------------
+	-- KEYBOARD EVENTS
+	-- -------------------------
+
+	on keydown[code=="ArrowDown"]
+		halt the event
+		call showMenu()
+
+		set selected to the first <[role="menuitem"].selected /> in me
+		
+		if selected is null then 
+			take .selected for the first <[role="menuitem"]/> in me
+			exit
+		end
+
+		set nextItem to the next <[role="menuitem"]/> from selected 
+
+		if nextItem is not null then
+			take .selected for nextItem
+			call nextItem.scrollIntoView({block:"nearest"})
+		end
+
+	on keydown[code=="ArrowUp"]
+		halt the event
+		call showMenu()
+		
+		set selected to the first <[role="menuitem"].selected /> in me
+		
+		if selected is null then 
+			take .selected for the last <[role="menuitem"]/> in me
+			exit
+		end
+
+		set prevItem to the previous <[role="menuitem"]/> from selected
+
+		if prevItem is not null then
+			take .selected for prevItem
+			call prevItem.scrollIntoView({block:"nearest"})
+			end
+
+	on keypress[code=="Enter"]
+		set current to the first <[role="menuitem"].selected /> in me
+		call selectMenuItem(current)
+		call hideMenu()
+
+	on keypress[code=="Escape"]
+		call hideMenu()
+
+	-- -------------------------
+	-- PRIVATE FUNCTIONS OMG!!
+	-- -------------------------
+
+	def toggleMenu		
+		if :menu's *opacity is 0 then
+			call showMenu()
+		else
+			call hideMenu()
+		end
+
+	def showMenu
+		remove [@hidden] from :menu
+		set the :menu's *opacity to 1
+
+	def hideMenu
+		async do
+			wait a tick
+			transition the :menu's opacity to 0 over 100ms
+			add [@hidden=true] to :menu
+			remove .selected from <[role="menuitem"] /> in me
+		end
+
+	def selectMenuItem(node)
+		if node is not null then
+			set :input.value to getValue(node)
+		end
+
+	def getValue(node)
+		set value to the node's [@value]
+		
+		if value is not null then
+			return value
+		end
+
+		return the node's innerText
+	
+	
