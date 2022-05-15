@@ -18,7 +18,10 @@ behavior combobox
 		exit
 
 	on blur from <input/> in me
-		call hideMenu()
+		if menuIsVisible() then
+			wait 100ms
+			call hideMenu()
+		end
 		
 	-- -------------------------
 	-- MOUSE EVENTS
@@ -36,6 +39,8 @@ behavior combobox
 	on mousedown
 		if the target's [@role] == "menuitem" then 
 			call selectMenuItem(target)
+			call hideMenu()
+			call :input.focus()
 		end
 
 	-- -------------------------
@@ -45,12 +50,12 @@ behavior combobox
 	on keydown[code=="ArrowDown"]
 		halt the event
 
-		if :menu's *opacity is 0 then
+		if menuIsHidden() then
 			call showMenu()
 			exit
 		end
 
-		set selected to the first <[role="menuitem"].selected /> in me
+		set selected to getSelectedItem()
 		
 		if selected is null then 
 			take .selected for the first <[role="menuitem"]/> in me
@@ -67,15 +72,15 @@ behavior combobox
 	on keydown[code=="ArrowUp"]
 		halt the event
 
-		if :menu's *opacity is 0 then
+		if menuIsHidden() then
 			call showMenu()
 			exit
 		end
 		
-		set selected to the first <[role="menuitem"].selected /> in me
+		set selected to getSelectedItem()
 		
 		if selected is null then 
-			take .selected for the last <[role="menuitem"]/> in me
+			take .selected for the last <[role="menuitem"]/> in :menu
 			exit
 		end
 
@@ -84,7 +89,7 @@ behavior combobox
 		if prevItem is not null then
 			take .selected for prevItem
 			call prevItem.scrollIntoView({block:"nearest"})
-			end
+		end
 
 	on keypress[code=="Enter"]
 		set current to the first <[role="menuitem"].selected /> in me
@@ -98,12 +103,15 @@ behavior combobox
 	-- PRIVATE FUNCTIONS OMG!!
 	-- -------------------------
 
-	def toggleMenu		
-		if :menu's *opacity is 0 then
-			call showMenu()
+	def menuIsVisible
+		if the :menu's *opacity is 1 then
+			return true
 		else
-			call hideMenu()
+			return false
 		end
+
+	def menuIsHidden
+		return not menuIsVisible()
 
 	def showMenu
 		remove [@hidden] from :menu
@@ -116,18 +124,27 @@ behavior combobox
 			add [@hidden=true] to :menu
 		end
 
+	def toggleMenu		
+		if menuIsVisible() then
+			call hideMenu()
+		else
+			call showMenu()
+		end
+
+
 	def selectMenuItem(node)
 		if node is not null then
 			set :input.value to getValue(node)
 		end
 
+	def getSelectedItem
+		return the first <[role="menuitem"].selected /> in :menu
+
 	def getValue(node)
 		set value to the node's [@value]
-		
 		if value is not null then
 			return value
 		end
-
 		return the node's innerText
 	
 	
