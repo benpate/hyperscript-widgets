@@ -98,9 +98,12 @@ behavior combobox
 		end
 
 	on keypress[code=="Enter"]
-		set current to the first <[role="menuitem"].selected /> in me
-		call selectMenuItem(current)
-		call hideMenu()
+		if menuIsVisible then
+			halt the event
+			set current to the first <[role="menuitem"].selected /> in me
+			call selectMenuItem(current)
+			call hideMenu()
+		end
 
 	on keypress[code=="Escape"]
 		call hideMenu()
