@@ -113,27 +113,27 @@ behavior combobox
 	-- -------------------------
 
 	def menuIsVisible
-		if the :menu's *opacity is 1 then
-			return true
-		else
-			return false
-		end
+		return (:menu's *opacity is 1)
 
 	def menuIsHidden
-		return not menuIsVisible()
+		return (:menu's *opacity is 0)
 
 	def showMenu
-		remove [@hidden] from :menu
-		set the :menu's *opacity to 1
-
-	def hideMenu
-		async do
-			wait a tick
-			transition the :menu's opacity to 0 over 100ms
-			add [@hidden=true] to :menu
+		if menuIsHidden() then
+			remove [@hidden] from :menu
+			set the :menu's *opacity to 1
 		end
 
-	def toggleMenu		
+	def hideMenu
+		if menuIsVisible() then
+			async do
+				wait a tick
+				transition the :menu's opacity to 0 over 100ms
+				add [@hidden=true] to :menu
+			end
+		end
+
+	def toggleMenu
 		if menuIsVisible() then
 			call hideMenu()
 		else
