@@ -35,6 +35,7 @@ on drop(dataTransfer)
 	halt the event
 	remove .highlight
 	set element input.files to dataTransfer.files
+    trigger change on element input
 
 on htmx:xhr:progress
 	log event
